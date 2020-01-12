@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BasicObjects\DataStorage.cs" />
+    <Compile Include="BasicObjects\Player.cs" />
     <Compile Include="MusicPlayerAdapter\IPlayerAdapter.cs" />
     <Compile Include="MusicPlayerAdapter\WAVServiceAdapter.cs" />
     <Page Include="MainWindow.xaml">
