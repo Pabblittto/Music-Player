@@ -23,6 +23,14 @@ namespace Music_Player
         public MainWindow()
         {
             InitializeComponent();
+
+            List<Models.Song> songList = new List<Models.Song>();
+
+            songList.Add(new Models.Song("a"));
+            songList.Add(new Models.Song("c"));
+            songList.Add(new Models.Song("b"));
+
+            songList = new Utilites.NameSorter(new Utilites.Sorter(songList)).Sort();
         }
     }
 }
