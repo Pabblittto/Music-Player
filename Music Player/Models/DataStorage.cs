@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Music_Player.BasicObjects
+namespace Music_Player.Models
 {
     class DataStorage
     {
         private DataStorage instance;
 
+        private List<Playlist> playlists;
+
         private DataStorage()
         {
-
+            playlists = new List<Playlist>();
         }
 
         public DataStorage getInstance()
@@ -20,6 +22,16 @@ namespace Music_Player.BasicObjects
             if (instance == null)
                 instance = new DataStorage();
             return instance;
+        }
+
+        public List<Playlist> GetPlaylists()
+        {
+            return playlists;
+        }
+
+        public void AddPlaylist(Playlist newPlaylist)
+        {
+            playlists.Add(newPlaylist);
         }
 
     }
