@@ -10,7 +10,7 @@ namespace Music_Player.Models
     class Song
     {
         public string title;
-        public string arthist;
+        public string artist;
         public DateTime releaseDate;
         public TimeSpan duration;
         public string album;

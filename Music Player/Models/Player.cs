@@ -30,7 +30,7 @@ namespace Music_Player.Models
         public void SetSong(Song song)
         {
             nowPlaying = song;
-           string extension = Path.GetExtension(song.path);
+            string extension = Path.GetExtension(song.path);
             switch (extension)
             {
                 case "wav":
@@ -51,12 +51,17 @@ namespace Music_Player.Models
         }
 
         public void Play() => musicPlayer.Play();
-        
+
         public void Pause() => musicPlayer.Pause();
 
         public void Stop() => musicPlayer.Stop();
 
         public void setCertainMoment(int second) => musicPlayer.SetCertainSecond(second);
+
+        public TimeSpan getSongLength()
+        {
+            return nowPlaying.duration;
+        }
 
 
 
