@@ -9,7 +9,7 @@ namespace Music_Player.Models
 {
     class Player
     {
-        private Player instance;
+        private static Player instance;
         IPlayerAdapter musicPlayer;
         MP3ServiceAdapter MP3ServiceAdapter = new MP3ServiceAdapter();
         WAVServiceAdapter WAVServiceAdapter = new WAVServiceAdapter();
@@ -20,7 +20,7 @@ namespace Music_Player.Models
 
         }
 
-        public Player getInstance()
+        public static Player getInstance()
         {
             if (instance == null)
                 instance = new Player();
@@ -62,9 +62,5 @@ namespace Music_Player.Models
         {
             return nowPlaying.duration;
         }
-
-
-
-
     }
 }
