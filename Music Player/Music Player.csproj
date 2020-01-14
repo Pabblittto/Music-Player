@@ -62,6 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\DataStorage.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Playlist.cs" />
+    <Compile Include="Models\Song.cs" />
     <Compile Include="MusicPlayerAdapter\IPlayerAdapter.cs" />
     <Compile Include="MusicPlayerAdapter\WAVServiceAdapter.cs" />
     <Page Include="MainWindow.xaml">
@@ -105,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\previous.png" />
+    <Resource Include="images\next.png" />
+    <Resource Include="images\pause.png" />
+    <Resource Include="images\play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
