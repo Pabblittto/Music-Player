@@ -8,7 +8,7 @@ namespace Music_Player.Models
 {
     class DataStorage
     {
-        private DataStorage instance;
+        private static DataStorage instance;
 
         private List<Playlist> playlists;
 
@@ -17,7 +17,7 @@ namespace Music_Player.Models
             playlists = new List<Playlist>();
         }
 
-        public DataStorage getInstance()
+        public static DataStorage getInstance()
         {
             if (instance == null)
                 instance = new DataStorage();
