@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Music_Player"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="650" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -22,7 +22,22 @@
                 <Button Margin="1" Click="LoadFromFileBtnClick" Padding="2">Load playlist from file</Button>
             </StackPanel>
             <Grid Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0">Playlists:</TextBlock>
                 <!--Main Place for playlists and others-->
+                <ListBox Grid.Column="0" Grid.Row="1">
+                    <ListBoxItem>asd</ListBoxItem>
+                    <ListBoxItem>asd</ListBoxItem>
+                    <ListBoxItem>asd</ListBoxItem>
+                </ListBox>
+                
 
             </Grid>
 

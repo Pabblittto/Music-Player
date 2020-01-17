@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Displaying\ArtistDisplayer.cs" />
+    <Compile Include="Displaying\Displayer.cs" />
     <Compile Include="Models\DataStorage.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Playlist.cs" />
