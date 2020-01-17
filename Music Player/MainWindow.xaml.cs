@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Music_Player.Models;
-
+using Music_Player.PlaylistManager;
 
 namespace Music_Player
 {
@@ -48,7 +48,7 @@ namespace Music_Player
 
             MyPlayer = Player.getInstance();
             MyDataStorage = DataStorage.getInstance();
-           
+
         }
 
         private void CreateNewPlaylistBtnClick(object sender, RoutedEventArgs e)

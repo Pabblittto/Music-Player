@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Music_Player.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,39 +12,34 @@ namespace Music_Player.PlaylistManager
 {
     abstract class PlaylistManager
     {
-        public void LoadPlaylist(string directory)
+        public Playlist LoadPlaylist(string directory)
         {
-            LoadFormat(directory);
+            return LoadFormat(directory);
         }
-        public void SavePlaylist(string directory, List<string> data)
+        public void SavePlaylist(string directory, Playlist data)
         {
 
             SaveFormat(directory, data);
         }
-        protected abstract void SaveFormat(string directory, List<string> data);
-        protected abstract List<string> LoadFormat(string directory);
+        protected abstract void SaveFormat(string directory, Playlist data);
+        protected abstract Playlist LoadFormat(string directory);
 
         
     }
     class XMLPlaylistManager : PlaylistManager
     {
-        protected override List<string> LoadFormat(string directory)
+        protected override Playlist LoadFormat(string directory)
         {
-            XmlDocument doc = new XmlDocument();
-            List<string> list = new List<string>();
-            doc.Load(directory);
-            foreach (XmlNode node in doc.DocumentElement.ChildNodes)
-            {
-                string text = node.InnerText;
-                Console.WriteLine(text);
-                list.Add(text);
-            }
-            return list;
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(Playlist));
+            StreamReader reader = new StreamReader(directory);
+            Playlist playlist = new Playlist();
+            playlist = (Playlist)serializer.Deserialize(reader);
+            return playlist;
         }
 
-        protected override void SaveFormat(string directory, List<string> data)
+        protected override void SaveFormat(string directory, Playlist data)
         {
-           System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(List<string>));
+           System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Playlist));
            FileStream file = File.Create(directory);
            writer.Serialize(file, data);
            file.Close();
@@ -51,19 +47,20 @@ namespace Music_Player.PlaylistManager
     }
     class JSONPlaylistManager : PlaylistManager
     {
-        protected override List<string> LoadFormat(string directory)
+        protected override Playlist LoadFormat(string directory)
         {
             string jsonInput = File.ReadAllText(directory);
-            List<string> flight = JsonConvert.DeserializeObject<List<string>>(jsonInput);
+            Playlist flight = JsonConvert.DeserializeObject<Playlist>(jsonInput);
             return flight;
         }
 
-        protected override void SaveFormat(string directory, List<string> data)
+        protected override void SaveFormat(string directory, Playlist data)
         {
             using (StreamWriter file = File.CreateText(directory))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, data);
+                var jsonString = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+                file.Write(jsonString);
                 file.Close();
             }
         }
