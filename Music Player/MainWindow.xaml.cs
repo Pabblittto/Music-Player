@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Music_Player.Utilites;
+using Music_Player.Models;
+using Music_Player.PlaylistManager;
+
 
 namespace Music_Player
 {
@@ -21,21 +24,23 @@ namespace Music_Player
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool MusicIsPlaying= false;
+        private Player MyPlayer;
+        private DataStorage MyDataStorage;
+        
+
+
+        // bitmap images frequently used
+        private BitmapImage playBitmapImage = new BitmapImage();
+        private BitmapImage pauseBitmapImage = new BitmapImage();
+
+
         public MainWindow()
         {
+
             InitializeComponent();
 
-            List<Models.Song> songList = new List<Models.Song>();
-            List<Models.Song> songList2 = new List<Models.Song>();
 
-            songList.Add(new Models.Song("a", DateTime.Now));
-            songList.Add(new Models.Song("c", new DateTime(2010, 3, 3)));
-            songList.Add(new Models.Song("c", new DateTime(2002, 3, 3)));
-            songList.Add(new Models.Song("c", new DateTime(2001, 3, 3)));
-            songList.Add(new Models.Song("b", new DateTime(2030, 3, 3)));
-
-            songList = new DateSorter(new NameSorter(new Sorter(songList))).Sort();
-            songList2 = new NameSorter(new DateSorter(new Sorter(songList))).Sort();
         }
     }
 }

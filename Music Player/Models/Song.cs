@@ -1,19 +1,20 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Music_Player.Models
 {
-    class Song
+    [JsonObject(MemberSerialization.OptOut)]
+    public class Song
     {
-        public string title;
-        public string artist;
-        public DateTime relaseDate;
-        public int duration;
-        public string album;
-
-        public Song(string title, DateTime relaseDate)
-        {
-            this.title = title;
-            this.relaseDate = relaseDate;
-        }
+        public string title { get; set; }
+        public string artist { get; set; }
+        public DateTime releaseDate { get; set; }
+        public TimeSpan duration { get; set; }
+        public string album { get; set; }
+        public string path { get; set; }
     }
 }
