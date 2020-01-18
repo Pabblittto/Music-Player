@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Music_Player.Models
 {
@@ -14,9 +10,10 @@ namespace Music_Player.Models
         public int duration;
         public string album;
 
-        public Song(string title)
+        public Song(string title, DateTime relaseDate)
         {
             this.title = title;
+            this.relaseDate = relaseDate;
         }
     }
 }

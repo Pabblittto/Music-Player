@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Song.cs" />
+    <Compile Include="Utilites\DateSorter.cs" />
     <Compile Include="Utilites\ISorter.cs" />
     <Compile Include="Utilites\NameSorter.cs" />
     <Compile Include="Utilites\Sorter.cs" />

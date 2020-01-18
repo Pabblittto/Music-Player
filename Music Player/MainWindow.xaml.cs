@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Music_Player.Utilites;
 
 namespace Music_Player
 {
@@ -25,12 +26,16 @@ namespace Music_Player
             InitializeComponent();
 
             List<Models.Song> songList = new List<Models.Song>();
+            List<Models.Song> songList2 = new List<Models.Song>();
 
-            songList.Add(new Models.Song("a"));
-            songList.Add(new Models.Song("c"));
-            songList.Add(new Models.Song("b"));
+            songList.Add(new Models.Song("a", DateTime.Now));
+            songList.Add(new Models.Song("c", new DateTime(2010, 3, 3)));
+            songList.Add(new Models.Song("c", new DateTime(2002, 3, 3)));
+            songList.Add(new Models.Song("c", new DateTime(2001, 3, 3)));
+            songList.Add(new Models.Song("b", new DateTime(2030, 3, 3)));
 
-            songList = new Utilites.NameSorter(new Utilites.Sorter(songList)).Sort();
+            songList = new DateSorter(new NameSorter(new Sorter(songList))).Sort();
+            songList2 = new NameSorter(new DateSorter(new Sorter(songList))).Sort();
         }
     }
 }
