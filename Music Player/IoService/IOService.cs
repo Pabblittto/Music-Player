@@ -59,7 +59,7 @@ namespace Music_Player.IoService
                 string[] files = Directory.GetFiles(dir);
                 foreach (string file in files)
                 {
-                    if (Path.GetExtension(file) != ".mp3")
+                    if (Path.GetExtension(file) != ".mp3" && Path.GetExtension(file) != ".wav")
                         continue;
 
                     TagLib.File songTfile = TagLib.File.Create(file);
