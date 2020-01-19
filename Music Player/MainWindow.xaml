@@ -14,26 +14,35 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal" >
-                <Button Margin="1" Click="CreateNewPlaylistBtnClick" Padding="2">Create new playlist</Button>
-                <Button Margin="1" Click="LoadFromFileBtnClick" Padding="2">Load playlist from file</Button>
-            </StackPanel>
+            <DockPanel Grid.Row="0" HorizontalAlignment="Left" >
+                <Menu>
+                    <MenuItem Header="_Playlist">
+                        <MenuItem Header="New..." Click="CreateNewPlaylistBtnClick"/>
+                        <MenuItem Header="Load from file..." Click="LoadFromFileBtnClick"/>
+                    </MenuItem>
+                    <MenuItem Header="_Display by...">
+                        <MenuItem Header="playlists" Click="DisplayByPlaylistsBtnClick"/>
+                        <MenuItem Header="artists" Click="DisplayByArtistsBtnClick"/>
+                        <MenuItem Header="albums" Click="DisplayByAlbumsBtnClick"/>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
             <Grid Grid.Row="1" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="155*"/>
+                    <ColumnDefinition Width="398*"/>
+                    <ColumnDefinition Width="398*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" >Playlists:</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="0" Name="DisplayTag" >Playlists:</TextBlock>
                 <!--Main Place for playlists and others-->
-                <ListBox Grid.Column="0" Grid.Row="1" Name="Playlists">
+                <ListBox Grid.Column="0" Grid.Row="1" Name="PlaylistsListBox"  SelectionChanged="CertainPlaylistSelectedClick">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -42,33 +51,53 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBox Grid.Column="1" Grid.Row="0">Music:</TextBox>
-                <ListBox Grid.Column="1" Grid.Row="1" Name="MusicsFromPlaylist">
-                    <ListBoxItem>
+                <Grid  Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40px"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" >Songs:</TextBlock>
+                    <TextBlock Grid.Column="1" Name="SortOrderTextBox" />
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20px"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50px"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock TextAlignment="Center" Grid.Column="0" Text="Duration"/>
+                            <TextBlock TextAlignment="Center" Grid.Column="0" Text="Duration" />
                             <TextBlock TextAlignment="Left" Grid.Column="1" Text="Title" Padding="20px 0 0 0 "/>
+                            <TextBlock TextAlignment="Left" Grid.Column="2" Text="Release Date" Padding="20px 0 0 0 "/>
+                            <Button Grid.Column="3" Content="Reset Sorting"/>
                         </Grid>
-                    </ListBoxItem>
-                    <ListBox.ItemTemplate>
+                    </Grid>
+                    <ListBox  Name="MusicsFromPlaylist" Grid.Row="1" >
+                        <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50px"/>
                                     <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="80"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding }"/>
-
-
-                            </Grid>
+                                    <TextBlock Grid.Column="0" Text="{Binding duration}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding title}" />
+                                    <TextBlock Grid.Column="2" Text="{Binding releaseDate}" />
+                                </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                
+
+ 
+                </Grid>
 
             </Grid>
 
