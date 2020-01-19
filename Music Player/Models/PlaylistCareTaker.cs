@@ -11,10 +11,34 @@ namespace Music_Player.Models
         public List<List<PlaylistMemento>> mementos;
         public List<Playlist> playlists;
 
-        public PlaylistMemento getMemento(Playlist playlist)
+
+        public PlaylistCareTaker()
+        {
+            playlists = new List<Playlist>();
+            mementos = new List<List<PlaylistMemento>>();
+        }
+        public PlaylistMemento getMemento(Playlist playlist, int exactMemento)
         {
             int index = this.playlists.IndexOf(playlist);
-            return mementos[index][mementos.Count()-1];
+            return mementos[index][exactMemento];
+        }
+        public List<PlaylistMemento> getMementos(Playlist playlist)
+        {
+            return mementos[playlists.IndexOf(playlist)];
+        }
+        public void addMemento(PlaylistMemento memento, Playlist playlist)
+        {
+            if (!playlists.Contains(playlist))
+            {
+                playlists.Add(playlist);
+                mementos.Add(new List<PlaylistMemento>());
+                mementos[mementos.Count - 1].Add(memento);
+            } 
+            else
+            {
+                mementos[playlists.IndexOf(playlist)].Add(memento);
+            }
+                
         }
     }
 }
