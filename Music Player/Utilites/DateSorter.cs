@@ -10,7 +10,7 @@ namespace Music_Player.Utilites
 
         public override int SortFn(Song item1, Song item2)
         {
-            return item1.relaseDate.CompareTo(item2.relaseDate);
+            return item1.releaseDate.CompareTo(item2.releaseDate);
         }
     }
 }
