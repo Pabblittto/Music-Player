@@ -67,14 +67,11 @@
     </ApplicationDefinition>
     <Compile Include="Displaying\ArtistDisplayer.cs" />
     <Compile Include="Displaying\Displayer.cs" />
-<<<<<<< HEAD
     <Compile Include="Models\PlaylistCareTaker.cs" />
     <Compile Include="Models\PlaylistMemento.cs" />
-=======
     <Compile Include="IoService\IIOService.cs" />
     <Compile Include="IoService\IOService.cs" />
     <Compile Include="IoService\IOServiceProxy.cs" />
->>>>>>> IO_service
     <Compile Include="Utilites\DateSorter.cs" />
     <Compile Include="Utilites\ISorter.cs" />
     <Compile Include="Utilites\NameSorter.cs" />
@@ -134,9 +131,6 @@
     <Resource Include="images\pause.png" />
     <Resource Include="images\play.png" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
   <ItemGroup />
->>>>>>> IO_service
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
