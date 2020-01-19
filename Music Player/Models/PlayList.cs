@@ -51,6 +51,15 @@ namespace Music_Player.Models
         {
             return PlaylistName;
         }
+        public void setMemento(PlaylistMemento memento)
+        {
+            this.PlaylistName = memento.name;
+            this.SongList = memento.songs;
+        }
+        public PlaylistMemento createMemento()
+        {
+            return new PlaylistMemento(this);
+        }
 
 
     }
