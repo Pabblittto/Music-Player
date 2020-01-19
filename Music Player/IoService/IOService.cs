@@ -88,7 +88,9 @@ namespace Music_Player.IoService
             else
                 song.artist = "Unknown";
 
-            song.releaseDate = new DateTime(file.Tag.Year);
+            if(!file.Tag.Year.Equals(0))
+                song.releaseDate = new DateTime(file.Tag.Year);
+
             song.duration = file.Properties.Duration;
             if (!string.IsNullOrEmpty(file.Tag.Album) && !file.Tag.Album.Equals(file.Name))
                 song.album = file.Tag.Album;

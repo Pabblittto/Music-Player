@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Music_Player.Displaying;
 using Music_Player.Models;
+using Music_Player.IoService;
 
 
 namespace Music_Player
@@ -58,7 +60,8 @@ namespace Music_Player
 
         private void CreateNewPlaylistBtnClick(object sender, RoutedEventArgs e)
         {
-
+            AddPlaylistWindow addPlaylistWindow = new AddPlaylistWindow();
+            addPlaylistWindow.ShowDialog();
         }
 
         private void LoadFromFileBtnClick(object sender, RoutedEventArgs e)
@@ -130,8 +133,22 @@ namespace Music_Player
 
         private void CertainPlaylistSelectedClick(object sender, SelectionChangedEventArgs e)
         {
-            Playlist selected = ((sender as ListBox).SelectedItem as Playlist);
+            Playlist selected = ((sender as System.Windows.Controls.ListBox).SelectedItem as Playlist);
             MusicsFromPlaylist.ItemsSource = selected.getSongs();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    List<Song> songList = IOServiceProxy.GetInstance().SearchDirectory(fbd.SelectedPath);
+                    DataStorage.getInstance().addSongs(songList);
+                }
+            }
         }
     }
 }
