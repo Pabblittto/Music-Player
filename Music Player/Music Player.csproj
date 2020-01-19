@@ -67,7 +67,6 @@
     </ApplicationDefinition>
     <Compile Include="Displaying\AlbumDisplayer.cs" />
     <Compile Include="Displaying\ArtistDisplayer.cs" />
-    <Compile Include="Displaying\Displayer.cs" />
     <Compile Include="Models\PlaylistCareTaker.cs" />
     <Compile Include="Models\PlaylistMemento.cs" />
     <Compile Include="IoService\IIOService.cs" />
