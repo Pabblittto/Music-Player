@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Music_Player.Displaying;
 using Music_Player.Models;
 
 
@@ -25,6 +26,8 @@ namespace Music_Player
         private bool MusicIsPlaying = false;
         private Player MyPlayer;
         private DataStorage MyDataStorage;
+
+        private IDisplayer Displayer;
 
 
 
@@ -48,6 +51,8 @@ namespace Music_Player
 
             MyPlayer = Player.getInstance();
             MyDataStorage = DataStorage.getInstance();
+            Displayer = new PlaylistDisplayer();
+            Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
 
         }
 
@@ -102,6 +107,31 @@ namespace Music_Player
         private void SliderMauseButtonDown(object sender, MouseButtonEventArgs e)
         {
             MyPlayer.Pause();
+        }
+
+        private void DisplayByPlaylistsBtnClick(object sender, RoutedEventArgs e)
+        {
+            Displayer = new PlaylistDisplayer();
+            Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
+        }
+
+        private void DisplayByArtistsBtnClick(object sender, RoutedEventArgs e)
+        {
+            Displayer = new ArtistDisplayer();
+            Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
+        }
+
+        private void DisplayByAlbumsBtnClick(object sender, RoutedEventArgs e)
+        {
+            Displayer = new AlbumDisplayer();
+            Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
+        }
+
+
+        private void CertainPlaylistSelectedClick(object sender, SelectionChangedEventArgs e)
+        {
+            Playlist selected = ((sender as ListBox).SelectedItem as Playlist);
+            MusicsFromPlaylist.ItemsSource = selected.getSongs();
         }
     }
 }

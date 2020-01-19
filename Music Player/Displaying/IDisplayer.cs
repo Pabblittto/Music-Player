@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Music_Player.Displaying
 {
-    interface Displayer
+    interface IDisplayer
     {
-        List<Song> Display();
+        void Display(ListBox ListBox, TextBlock ListTag, DataStorage dataStorage);
 
     }
 }

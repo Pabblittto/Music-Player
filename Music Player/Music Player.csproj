@@ -62,22 +62,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Displaying\AlbumDisplayer.cs" />
     <Compile Include="Displaying\ArtistDisplayer.cs" />
-    <Compile Include="Displaying\Displayer.cs" />
-
+    <Compile Include="Displaying\IDisplayer.cs" />
+    <Compile Include="Displaying\PlaylistDisplayer.cs" />
     <Compile Include="Utilites\DateSorter.cs" />
     <Compile Include="Utilites\ISorter.cs" />
     <Compile Include="Utilites\NameSorter.cs" />
     <Compile Include="Utilites\Sorter.cs" />
     <Compile Include="Utilites\SorterDecorator.cs" />
-
     <Compile Include="Models\DataStorage.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Playlist.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="MusicPlayerAdapter\IPlayerAdapter.cs" />
     <Compile Include="MusicPlayerAdapter\WAVServiceAdapter.cs" />
-
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -120,13 +119,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="images\previous.png" />
     <Resource Include="images\next.png" />
     <Resource Include="images\pause.png" />
     <Resource Include="images\play.png" />
   </ItemGroup>
-
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
