@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Music_Player.Models;
-using Music_Player.PlaylistManager;
+
 
 namespace Music_Player
 {
@@ -22,10 +22,10 @@ namespace Music_Player
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool MusicIsPlaying= false;
+        private bool MusicIsPlaying = false;
         private Player MyPlayer;
         private DataStorage MyDataStorage;
-        
+
 
 
         // bitmap images frequently used
@@ -76,7 +76,7 @@ namespace Music_Player
             {
                 MusicIsPlaying = true;
                 PlayPauseImage.Source = pauseBitmapImage;
-                
+
                 // in this promlems can occured
                 MyPlayer.Play();// need check if music was selectd- something like disabled button
             }
