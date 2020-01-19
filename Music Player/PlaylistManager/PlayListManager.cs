@@ -53,10 +53,10 @@ namespace Music_Player.PlaylistManager
             Playlist flight = JsonConvert.DeserializeObject<Playlist>(jsonInput);
             return flight;
         }
-
+        
         protected override void SaveFormat(string directory, Playlist data)
         {
-            using (StreamWriter file = File.CreateText(directory))
+            using (StreamWriter file = new StreamWriter(directory, false))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 var jsonString = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
