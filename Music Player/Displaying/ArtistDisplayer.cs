@@ -14,15 +14,12 @@ namespace Music_Player.Displaying
 
         public void Display(ListBox ListBox,TextBlock ListTag, DataStorage dataStorage)
         {
+            ListBox.ItemsSource = null;
+
             ListTag.Text = TagName;
             List<Playlist> finalPlaylists = new List<Playlist>();
-            Playlist testPiosen = new Playlist("Test z muzyczką");
-            testPiosen.addSong(new Song() { title = "songasd", duration = new TimeSpan(0, 4, 33), releaseDate = new DateTime(1998, 10, 4 ),path= "C://Users//Pabblo//Desktop//Hymn ŚDM 2016 - Błogosławieni Miłosierni (Krysiek Remix).mp3"});
-            testPiosen.addSong(new Song() { title = "sample", duration = new TimeSpan(0, 0, 33), releaseDate = new DateTime(1998, 10, 4 ),path= "C://Users//Pabblo//Desktop//sample.wav"});
-            finalPlaylists.Add(testPiosen);
             finalPlaylists.Add(new Playlist("Unknown"));
-            finalPlaylists.Add(new Playlist("Test"));
-            finalPlaylists.Add(new Playlist("Test123123"));
+
 
             foreach (Playlist singlePlaylist in dataStorage.GetPlaylists())// for each playlist- go for each song
             {

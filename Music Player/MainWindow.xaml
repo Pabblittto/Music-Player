@@ -82,25 +82,15 @@
                             <Button x:Name="ResetSortingBtn" Grid.Column="3" Content="Reset Sorting" Click="ResetSortingBtnClick"/>
                         </Grid>
                     </Grid>
-                    <ListBox  Name="MusicsFromPlaylist" Grid.Row="1" PreviewMouseDoubleClick="CertainSongDoubleClick"  >
-                        <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50px"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="80"/>
-                                </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding title}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding duration}"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding releaseDate}" />
-                                </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
- 
+                    <ListView  Name="MusicsFromPlaylist" Grid.Row="1" PreviewMouseDoubleClick="CertainSongDoubleClick"  >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Title" Width="150px" DisplayMemberBinding="{Binding title}"/>
+                                <GridViewColumn Header="Duration" Width="100px" DisplayMemberBinding="{Binding duration}"/>
+                                <GridViewColumn Header="Release Date" Width="100px" DisplayMemberBinding="{Binding releaseDate}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
                 <TextBlock Grid.Column="2" Grid.Row="0" TextAlignment="Center" Text="NOW PLAYING"/>
                 <Grid Grid.Column="2" Grid.Row="1">

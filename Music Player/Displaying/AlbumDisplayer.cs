@@ -14,6 +14,8 @@ namespace Music_Player.Displaying
 
         public void Display(ListBox ListBox, TextBlock ListTag, DataStorage dataStorage)
         {
+            ListBox.ItemsSource = null;
+
             ListTag.Text = TagName;
             List<Playlist> finalPlaylists = new List<Playlist>();
             finalPlaylists.Add(new Playlist("Unknown"));

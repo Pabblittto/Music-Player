@@ -192,10 +192,15 @@ namespace Music_Player
 
         private void CertainSongDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (MusicIsPlaying)
+                MyPlayer.Stop();
+
             Song clickedMusic = ((sender as System.Windows.Controls.ListBox).SelectedItem as Song);
 
             MakePlayerPlayCertainMusic(clickedMusic);
-            PlayPauseBtnClick(null, null);// trigger btn click
+            if (MusicIsPlaying)
+                MyPlayer.Play();
+            //PlayPauseBtnClick(null, null);// trigger btn click
         }
 
         private void NextSongBtnClick(object sender, RoutedEventArgs e)
@@ -219,23 +224,26 @@ namespace Music_Player
 
         private void MakePlayerPlayCertainMusic(Song MusicToPlay)
         {
+            if (MusicToPlay != null)
+            {
+                SongTitle.Text = MusicToPlay.title;
+                SongAtrist.Text = MusicToPlay.artist;
+                SongAlbum.Text = MusicToPlay.album;
+                SongReleaseDate.Text = MusicToPlay.releaseDate.ToShortDateString();
 
-            SongTitle.Text = MusicToPlay.title;
-            SongAtrist.Text = MusicToPlay.artist;
-            SongAlbum.Text = MusicToPlay.album;
-            SongReleaseDate.Text = MusicToPlay.releaseDate.ToShortDateString();
 
 
+                MyPlayer.SetSong(MusicToPlay);
 
-            MyPlayer.SetSong(MusicToPlay);
+                PrevBtn.IsEnabled = true;
+                NextBtn.IsEnabled = true;
+                PlayBtn.IsEnabled = true;
+                MusicSlider.IsEnabled = true;
+                MusicSlider.Maximum = MusicToPlay.duration.TotalSeconds;
+                MusicSlider.Value = 0;
+                FullTimeTextBlock.Text = MusicToPlay.duration.ToString();
+            }
 
-            PrevBtn.IsEnabled = true;
-            NextBtn.IsEnabled = true;
-            PlayBtn.IsEnabled = true;
-            MusicSlider.IsEnabled = true;
-            MusicSlider.Maximum = MusicToPlay.duration.TotalSeconds;
-            MusicSlider.Value = 0;
-            FullTimeTextBlock.Text = MusicToPlay.duration.ToString();
         }
 
         private void PrevSongBtnClick(object sender, RoutedEventArgs e)
@@ -269,6 +277,7 @@ namespace Music_Player
                     DataStorage.getInstance().addSongs(songList);
                 }
             }
+            Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
         }
         
         private void SortTitleBtnClick(object sender, RoutedEventArgs e)

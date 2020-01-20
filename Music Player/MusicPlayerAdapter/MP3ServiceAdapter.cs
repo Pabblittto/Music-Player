@@ -20,7 +20,15 @@ namespace Music_Player
         public TimeSpan Load(string filePath)
         {
             reader = new Mp3FileReader(filePath);
-            player.Init(reader);
+            try
+            {
+                player.Init(reader);
+            }catch(Exception e)
+            {
+                player= new WaveOutEvent();
+                player.Init(reader);
+            }
+            
             return reader.TotalTime;
         }
 
