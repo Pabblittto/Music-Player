@@ -17,6 +17,7 @@ using System.Windows.Threading;
 using Music_Player.Displaying;
 using Music_Player.IoService;
 using Music_Player.Models;
+using Music_Player.IoService;
 
 
 namespace Music_Player
@@ -84,8 +85,8 @@ namespace Music_Player
 
         private void CreateNewPlaylistBtnClick(object sender, RoutedEventArgs e)
         {
-
-
+            AddPlaylistWindow addPlaylistWindow = new AddPlaylistWindow();
+            addPlaylistWindow.ShowDialog();
         }
 
         private void LoadFromFileBtnClick(object sender, RoutedEventArgs e)
@@ -244,6 +245,20 @@ namespace Music_Player
             if (MusicIsPlaying)
                 MyPlayer.Play();
 
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    List<Song> songList = IOServiceProxy.GetInstance().SearchDirectory(fbd.SelectedPath);
+                    DataStorage.getInstance().addSongs(songList);
+                }
+            }
         }
     }
 }

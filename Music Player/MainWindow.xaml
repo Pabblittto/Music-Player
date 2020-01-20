@@ -19,6 +19,9 @@
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" HorizontalAlignment="Left" >
                 <Menu>
+                    <MenuItem Header="_File">
+                        <MenuItem Header="Add songs" Click="MenuItem_Click"/>
+                    </MenuItem>
                     <MenuItem Header="_Playlist">
                         <MenuItem Header="New..." Click="CreateNewPlaylistBtnClick"/>
                         <MenuItem Header="Load from file..." Click="LoadFromFileBtnClick"/>

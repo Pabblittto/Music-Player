@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddPlaylistWindow.xaml.cs">
+      <DependentUpon>AddPlaylistWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Displaying\AlbumDisplayer.cs" />
     <Compile Include="Displaying\ArtistDisplayer.cs" />
     <Compile Include="Models\PlaylistCareTaker.cs" />
@@ -85,6 +88,10 @@
     <Compile Include="Models\Song.cs" />
     <Compile Include="MusicPlayerAdapter\IPlayerAdapter.cs" />
     <Compile Include="MusicPlayerAdapter\WAVServiceAdapter.cs" />
+    <Page Include="AddPlaylistWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
