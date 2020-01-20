@@ -210,6 +210,7 @@ namespace Music_Player
 
         private void MakePlayerPlayCertainMusic(Song MusicToPlay)
         {
+
             SongTitle.Text = MusicToPlay.title;
             SongAtrist.Text = MusicToPlay.artist;
             SongAlbum.Text = MusicToPlay.album;
@@ -259,6 +260,26 @@ namespace Music_Player
                     DataStorage.getInstance().addSongs(songList);
                 }
             }
+        }
+        
+        private void SortTitleBtnClick(object sender, RoutedEventArgs e)
+        {
+            //   odwa³anie do przycisku- SortTitleBtn
+        }
+
+        private void SortDurationBtnClick(object sender, RoutedEventArgs e)
+        {
+            // odwo³anie do przycisku -SortDurationBtn
+        }
+
+        private void SortReleaseBtnClick(object sender, RoutedEventArgs e)
+        {
+            //odwo³anie - SortDateBtn
+        }
+
+        private void ResetSortingBtnClick(object sender, RoutedEventArgs e)
+        { 
+
         }
     }
 }
