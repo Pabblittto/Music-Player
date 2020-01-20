@@ -7,12 +7,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Music_Player.Displaying;
+using Music_Player.IoService;
 using Music_Player.Models;
 
 
@@ -29,11 +32,17 @@ namespace Music_Player
 
         private IDisplayer Displayer;
 
-
+        DispatcherTimer Slidertimer = new DispatcherTimer();
+        
 
         // bitmap images frequently used
         private BitmapImage playBitmapImage = new BitmapImage();
         private BitmapImage pauseBitmapImage = new BitmapImage();
+
+        IOServiceProxy fileService = IOServiceProxy.GetInstance();
+
+        
+
 
 
         public MainWindow()
@@ -54,16 +63,43 @@ namespace Music_Player
             Displayer = new PlaylistDisplayer();
             Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
 
+            Slidertimer.Interval = new TimeSpan(0, 0, 1);
+            Slidertimer.Tick += MoveSliderByOneSecondEvent;
+
+
+        }
+
+        private void MoveSliderByOneSecondEvent(Object source, EventArgs e)
+        {
+            if (MusicSlider.Value <= MyPlayer.getSongLength().TotalSeconds)
+            {
+                MusicSlider.Value = MusicSlider.Value + 1;
+                PastTimeTextBlock.Text = TimeSpan.FromSeconds(MusicSlider.Value).ToString();
+            }
+            else
+            {
+                NextSongBtnClick(null, null);
+            }
         }
 
         private void CreateNewPlaylistBtnClick(object sender, RoutedEventArgs e)
         {
 
+
         }
 
         private void LoadFromFileBtnClick(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog filePicker = new OpenFileDialog();
+            filePicker.Title = "Select Playlist";
+            filePicker.Filter = "Json and xml files(*.json;*.xml)|*.json;*.xml";
 
+            if(filePicker.ShowDialog()== System.Windows.Forms.DialogResult.OK)
+            {
+                MyDataStorage.AddPlaylist(fileService.ReadPlaylist(filePicker.FileName));
+                Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
+            }
+            
         }
 
         private void PlayPauseBtnClick(object sender, RoutedEventArgs e)
@@ -74,14 +110,14 @@ namespace Music_Player
                 MusicIsPlaying = false;
                 PlayPauseImage.Source = playBitmapImage;
                 MyPlayer.Pause();
-
+                Slidertimer.Stop();
 
             }
             else// music is paused or stoped, user wants to play it
             {
                 MusicIsPlaying = true;
                 PlayPauseImage.Source = pauseBitmapImage;
-
+                Slidertimer.Start();
                 // in this promlems can occured
                 MyPlayer.Play();// need check if music was selectd- something like disabled button
             }
@@ -90,22 +126,25 @@ namespace Music_Player
         // when user changing slider position- change value in PastTimeTextBlock -- must have
         private void SliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            var elo = 10;
+            Slider tmpSlider = sender as Slider;
+            PastTimeTextBlock.Text = TimeSpan.FromSeconds(tmpSlider.Value).ToString();
         }
 
         // when user set slider on some point
         private void SliderMouseButtonUp(object sender, MouseButtonEventArgs e)
         {
+            MyPlayer.setCertainMoment((int)MusicSlider.Value);
             if (MusicIsPlaying)// if music was playing and user changed its position- pause it and then play it again
             {
+                Slidertimer.Start();
                 MyPlayer.Play();
             }
-
         }
 
         // when user pressed slider- music pause
         private void SliderMauseButtonDown(object sender, MouseButtonEventArgs e)
         {
+            Slidertimer.Stop();
             MyPlayer.Pause();
         }
 
@@ -130,8 +169,81 @@ namespace Music_Player
 
         private void CertainPlaylistSelectedClick(object sender, SelectionChangedEventArgs e)
         {
-            Playlist selected = ((sender as ListBox).SelectedItem as Playlist);
-            MusicsFromPlaylist.ItemsSource = selected.getSongs();
+
+            Playlist selected = ((sender as System.Windows.Controls.ListBox).SelectedItem as Playlist);
+            if(selected!=null)
+                MusicsFromPlaylist.ItemsSource = selected.getSongs();
+            else
+            {
+                MusicsFromPlaylist.ItemsSource = new List<Song>();
+            }
+            
+        }
+
+        private void CertainSongDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Song clickedMusic = ((sender as System.Windows.Controls.ListBox).SelectedItem as Song);
+
+            MakePlayerPlayCertainMusic(clickedMusic);
+            PlayPauseBtnClick(null, null);// trigger btn click
+        }
+
+        private void NextSongBtnClick(object sender, RoutedEventArgs e)
+        {
+            int Allelements=(MusicsFromPlaylist.ItemsSource as List<Song>).Count;
+            int currentIndex = MusicsFromPlaylist.SelectedIndex;
+            if (currentIndex + 1 == Allelements)// the last element is playing right now- play first element
+            {
+                MusicsFromPlaylist.SelectedIndex = 0;
+            }
+            else
+            {
+                MusicsFromPlaylist.SelectedIndex++;
+            }
+            MyPlayer.Stop();
+            MakePlayerPlayCertainMusic(MusicsFromPlaylist.SelectedItem as Song);
+            if (MusicIsPlaying)
+                MyPlayer.Play();
+
+        }
+
+        private void MakePlayerPlayCertainMusic(Song MusicToPlay)
+        {
+            SongTitle.Text = MusicToPlay.title;
+            SongAtrist.Text = MusicToPlay.artist;
+            SongAlbum.Text = MusicToPlay.album;
+            SongReleaseDate.Text = MusicToPlay.releaseDate.ToShortDateString();
+
+
+
+            MyPlayer.SetSong(MusicToPlay);
+
+            PrevBtn.IsEnabled = true;
+            NextBtn.IsEnabled = true;
+            PlayBtn.IsEnabled = true;
+            MusicSlider.IsEnabled = true;
+            MusicSlider.Maximum = MusicToPlay.duration.TotalSeconds;
+            MusicSlider.Value = 0;
+            FullTimeTextBlock.Text = MusicToPlay.duration.ToString();
+        }
+
+        private void PrevSongBtnClick(object sender, RoutedEventArgs e)
+        {
+            int Allelements = (MusicsFromPlaylist.ItemsSource as List<Song>).Count;
+            int currentIndex = MusicsFromPlaylist.SelectedIndex;
+            if (currentIndex == 0)// If current music is first
+            {
+                MusicsFromPlaylist.SelectedIndex = Allelements-1;
+            }
+            else
+            {
+                MusicsFromPlaylist.SelectedIndex--;
+            }
+            MyPlayer.Stop();
+            MakePlayerPlayCertainMusic(MusicsFromPlaylist.SelectedItem as Song);
+            if (MusicIsPlaying)
+                MyPlayer.Play();
+
         }
     }
 }

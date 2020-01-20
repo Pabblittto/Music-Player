@@ -33,12 +33,12 @@ namespace Music_Player.Models
             string extension = Path.GetExtension(song.path);
             switch (extension)
             {
-                case "wav":
+                case ".wav":
                     {
                         musicPlayer = WAVServiceAdapter;
                         break;
                     }
-                case "mp3":
+                case ".mp3":
                     {
                         musicPlayer = MP3ServiceAdapter;
                         break;
@@ -56,7 +56,11 @@ namespace Music_Player.Models
 
         public void Stop() => musicPlayer.Stop();
 
-        public void setCertainMoment(int second) => musicPlayer.SetCertainSecond(second);
+        public void setCertainMoment(int second)
+        {
+            musicPlayer.SetCertainSecond(second);
+            musicPlayer.Pause();
+        }
 
         public TimeSpan getSongLength()
         {
