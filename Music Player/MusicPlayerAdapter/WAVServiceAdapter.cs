@@ -22,7 +22,15 @@ namespace Music_Player
         public TimeSpan Load(string filepath)
         {
             reader = new WaveFileReader(filepath);
-            player.Init(reader);
+            try
+            {
+                player.Init(reader);
+            }catch(Exception e)
+            {
+                player= new WaveOutEvent();
+                player.Init(reader);
+            }
+
             return reader.TotalTime;
         }
 

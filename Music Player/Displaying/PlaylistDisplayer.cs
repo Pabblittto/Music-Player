@@ -14,6 +14,7 @@ namespace Music_Player.Displaying
 
         public void Display(ListBox ListBox, TextBlock ListTag, DataStorage dataStorage)
         {
+            ListBox.ItemsSource = null;
             ListTag.Text = TagName;
             ListBox.ItemsSource = dataStorage.GetPlaylists();
         }
