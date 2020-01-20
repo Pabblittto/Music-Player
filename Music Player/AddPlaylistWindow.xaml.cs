@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Music_Player.Models;
 using Music_Player.IoService;
 
@@ -44,6 +33,8 @@ namespace Music_Player
             playlist.setSongs(songs);
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Json and Xml files (*.json; *.xml)|*.json;*.xml";
+            saveFileDialog.DefaultExt = "." + extSelect.SelectedItem.ToString();
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 IOServiceProxy.GetInstance().SavePlaylist(playlist, saveFileDialog.FileName, SaveFormat.JSON);

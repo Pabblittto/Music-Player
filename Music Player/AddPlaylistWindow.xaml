@@ -24,6 +24,10 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Nazwa playlisty" VerticalAlignment="Center"/>
             <TextBlock x:Name="playlistNameInput" VerticalAlignment="Center" Width="120"/>
+            <ComboBox x:Name="extSelect" Width="100" Height="20">
+                <ComboBoxItem Content="json" IsSelected="True"></ComboBoxItem>
+                <ComboBoxItem Content="xml"></ComboBoxItem>
+            </ComboBox>
             <Button x:Name="playlistSaveButton" Content="Zapisz" Width="100" Click="playlistSaveButton_Click"/>
         </StackPanel>
     </Grid>
