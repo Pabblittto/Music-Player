@@ -35,6 +35,7 @@ namespace Music_Player
         private IDisplayer Displayer;
         private List<Song> unsortedSongList;
         private ISorter sorter;
+        private Playlist selectedPlaylist;
 
         DispatcherTimer Slidertimer = new DispatcherTimer();
         
@@ -177,6 +178,7 @@ namespace Music_Player
             Playlist selected = ((sender as System.Windows.Controls.ListBox).SelectedItem as Playlist);
             if(selected!=null)
             {
+                selectedPlaylist = selected;
                 unsortedSongList = selected.getSongs();
                 sorter = new Sorter(unsortedSongList);
                 MusicsFromPlaylist.ItemsSource = selected.getSongs();
@@ -301,6 +303,12 @@ namespace Music_Player
             SortTitleBtn.IsEnabled = true;
             SortDurationBtn.IsEnabled = true;
             SortDateBtn.IsEnabled = true;
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            AddPlaylistWindow addPlaylistWindow = new AddPlaylistWindow(selectedPlaylist);
+            addPlaylistWindow.ShowDialog();
         }
     }
 }

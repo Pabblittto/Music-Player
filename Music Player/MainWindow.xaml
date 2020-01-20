@@ -25,6 +25,7 @@
                     <MenuItem Header="_Playlist">
                         <MenuItem Header="New..." Click="CreateNewPlaylistBtnClick"/>
                         <MenuItem Header="Load from file..." Click="LoadFromFileBtnClick"/>
+                        <MenuItem Header="Edit" Click="MenuItem_Click_1"/>
                     </MenuItem>
                     <MenuItem Header="_Display by...">
                         <MenuItem Header="playlists" Click="DisplayByPlaylistsBtnClick"/>

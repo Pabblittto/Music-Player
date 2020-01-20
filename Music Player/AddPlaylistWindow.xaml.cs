@@ -11,10 +11,30 @@ namespace Music_Player
     /// </summary>
     public partial class AddPlaylistWindow : Window
     {
+        private Playlist editedPlaylist;
         public AddPlaylistWindow()
         {
             InitializeComponent();
             songsListView.ItemsSource = DataStorage.getInstance().getAllSongs();
+            
+        }
+
+        public AddPlaylistWindow(Playlist playlist)
+        {
+            InitializeComponent();
+
+            songsListView.ItemsSource = DataStorage.getInstance().getAllSongs();
+
+            editedPlaylist = playlist;
+            playlistNameInput.Text = editedPlaylist.PlaylistName;
+
+            List<Song> currentSongs = DataStorage.getInstance().getAllSongs();
+
+            foreach (Song song in playlist.SongList)
+            {
+                if (currentSongs.Contains(song))
+                    songsListView.SelectedItems.Add(song);
+            }
         }
 
         private void playlistSaveButton_Click(object sender, RoutedEventArgs e)
