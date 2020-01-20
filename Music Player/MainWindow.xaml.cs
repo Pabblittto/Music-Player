@@ -18,6 +18,7 @@ using Music_Player.Displaying;
 using Music_Player.IoService;
 using Music_Player.Models;
 using Music_Player.IoService;
+using Music_Player.Utilites;
 
 
 namespace Music_Player
@@ -32,6 +33,8 @@ namespace Music_Player
         private DataStorage MyDataStorage;
 
         private IDisplayer Displayer;
+        private List<Song> unsortedSongList;
+        private ISorter sorter;
 
         DispatcherTimer Slidertimer = new DispatcherTimer();
         
@@ -173,7 +176,11 @@ namespace Music_Player
 
             Playlist selected = ((sender as System.Windows.Controls.ListBox).SelectedItem as Playlist);
             if(selected!=null)
+            {
+                unsortedSongList = selected.getSongs();
+                sorter = new Sorter(unsortedSongList);
                 MusicsFromPlaylist.ItemsSource = selected.getSongs();
+            }
             else
             {
                 MusicsFromPlaylist.ItemsSource = new List<Song>();
@@ -273,22 +280,36 @@ namespace Music_Player
         
         private void SortTitleBtnClick(object sender, RoutedEventArgs e)
         {
-            //   odwa³anie do przycisku- SortTitleBtn
+            MusicsFromPlaylist.ItemsSource = new List<Song>();
+            sorter = new NameSorter(sorter);
+            MusicsFromPlaylist.ItemsSource = sorter.Sort();
+            SortTitleBtn.IsEnabled = false;
         }
 
         private void SortDurationBtnClick(object sender, RoutedEventArgs e)
         {
-            // odwo³anie do przycisku -SortDurationBtn
+            MusicsFromPlaylist.ItemsSource = new List<Song>();
+            sorter = new DurationSorter(sorter);
+            MusicsFromPlaylist.ItemsSource = sorter.Sort();
+            SortDurationBtn.IsEnabled = false;
         }
 
         private void SortReleaseBtnClick(object sender, RoutedEventArgs e)
         {
-            //odwo³anie - SortDateBtn
+            MusicsFromPlaylist.ItemsSource = new List<Song>();
+            sorter = new DateSorter(sorter);
+            MusicsFromPlaylist.ItemsSource = sorter.Sort();
+            SortDateBtn.IsEnabled = false;
         }
 
         private void ResetSortingBtnClick(object sender, RoutedEventArgs e)
-        { 
-
+        {
+            MusicsFromPlaylist.ItemsSource = new List<Song>();
+            sorter = new Sorter(unsortedSongList);
+            MusicsFromPlaylist.ItemsSource = unsortedSongList;
+            SortTitleBtn.IsEnabled = true;
+            SortDurationBtn.IsEnabled = true;
+            SortDateBtn.IsEnabled = true;
         }
     }
 }

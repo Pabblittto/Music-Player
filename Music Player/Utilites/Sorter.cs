@@ -10,12 +10,12 @@ namespace Music_Player.Utilites
 
         public Sorter(List<Song> songList)
         {
-            this.songList = songList;
+            this.songList = new List<Song>(songList);
+            sortGroups = new List<List<Song>>();
         }
 
         public List<Song> Sort()
         {
-            sortGroups = new List<List<Song>>();
             return songList;
         }
 

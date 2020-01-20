@@ -78,7 +78,7 @@
                             <Button HorizontalContentAlignment="Left"  Grid.Column="0" Content="Title" Padding="20px 0 0 0 " Click="SortTitleBtnClick" Name="SortTitleBtn"/>
                             <Button HorizontalContentAlignment="Center" Grid.Column="1" Content="Duration" Click="SortDurationBtnClick" Name="SortDurationBtn" />
                             <Button HorizontalContentAlignment="Left" Grid.Column="2" Content="Release Date" Padding="20px 0 0 0 " Click="SortReleaseBtnClick" Name="SortDateBtn"/>
-                            <Button Grid.Column="3" Content="Reset Sorting" Click="ResetSortingBtnClick"/>
+                            <Button x:Name="ResetSortingBtn" Grid.Column="3" Content="Reset Sorting" Click="ResetSortingBtnClick"/>
                         </Grid>
                     </Grid>
                     <ListView  Name="MusicsFromPlaylist" Grid.Row="1" PreviewMouseDoubleClick="CertainSongDoubleClick"  >
