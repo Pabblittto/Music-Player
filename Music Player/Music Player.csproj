@@ -78,6 +78,7 @@
     <Compile Include="Displaying\IDisplayer.cs" />
     <Compile Include="Displaying\PlaylistDisplayer.cs" />
     <Compile Include="Utilites\DateSorter.cs" />
+    <Compile Include="Utilites\DurationSorter.cs" />
     <Compile Include="Utilites\ISorter.cs" />
     <Compile Include="Utilites\NameSorter.cs" />
     <Compile Include="Utilites\Sorter.cs" />
