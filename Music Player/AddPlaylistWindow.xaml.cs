@@ -23,6 +23,8 @@ namespace Music_Player
 
             Playlist playlist = new Playlist(playlistName);
 
+            playlist.setName(playlistName);
+
             List<Song> songs = new List<Song>();
 
             foreach (Song song in songsListView.SelectedItems)
