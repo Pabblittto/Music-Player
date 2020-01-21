@@ -32,7 +32,10 @@ namespace Music_Player.Displaying
                     {
                         Playlist tmpPlaylist = finalPlaylists.FirstOrDefault(ob => ob.PlaylistName == singleSong.album);
                         if (tmpPlaylist != null)// if such playlist exists- add song to it
-                            tmpPlaylist.addSong(singleSong);
+                        {
+                            if(tmpPlaylist.getSongs().FirstOrDefault(ob => ob.title.CompareTo(singleSong.title) == 0) == null)
+                                tmpPlaylist.addSong(singleSong);
+                        }
                         else// if there is no such playlist- create it
                         {
                             finalPlaylists.Add(new Playlist(singleSong.album));
