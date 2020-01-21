@@ -14,17 +14,25 @@ namespace Music_Player.PlaylistManager
     {
         public Playlist LoadPlaylist(string directory)
         {
-            return LoadFormat(directory);
+            Playlist playlist;
+            playlist = LoadFormat(directory);
+            if (DataStorage.getInstance().playlists.Contains(playlist))
+            {
+                return null;
+            }
+            return playlist;
         }
         public void SavePlaylist(string directory, Playlist data)
         {
-
-            SaveFormat(directory, data);
+            try
+            {
+                SaveFormat(directory, data);
+            }
+            catch{ Console.WriteLine("Could not read the file"); }
+            
         }
         protected abstract void SaveFormat(string directory, Playlist data);
-        protected abstract Playlist LoadFormat(string directory);
-
-        
+        protected abstract Playlist LoadFormat(string directory);  
     }
     class XMLPlaylistManager : PlaylistManager
     {
