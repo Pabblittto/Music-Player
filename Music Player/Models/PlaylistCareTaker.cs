@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace Music_Player.Models
 {
-    class PlaylistCareTaker
+    public class PlaylistCareTaker
     {
         public List<List<PlaylistMemento>> mementos;
         public List<Playlist> playlists;
+        private static PlaylistCareTaker instance;
 
-
-        public PlaylistCareTaker()
+        private PlaylistCareTaker()
         {
             playlists = new List<Playlist>();
             mementos = new List<List<PlaylistMemento>>();
+        }
+        public static PlaylistCareTaker getInstance()
+        {
+            if (instance == null)
+                instance = new PlaylistCareTaker();
+            return instance;
         }
         public PlaylistMemento getMemento(Playlist playlist, int exactMemento)
         {
@@ -36,6 +42,10 @@ namespace Music_Player.Models
             } 
             else
             {
+                if(mementos[playlists.IndexOf(playlist)].Count == 0)
+                {
+                    mementos.Add(new List<PlaylistMemento>());
+                }
                 mementos[playlists.IndexOf(playlist)].Add(memento);
             }
                 

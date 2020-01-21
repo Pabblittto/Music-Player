@@ -10,7 +10,7 @@ namespace Music_Player.Models
     {
         private static DataStorage instance;
 
-        private List<Playlist> playlists;
+        public List<Playlist> playlists;
 
         private DataStorage()
         {

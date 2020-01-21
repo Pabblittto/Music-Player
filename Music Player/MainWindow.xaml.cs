@@ -38,15 +38,13 @@ namespace Music_Player
         private Playlist selectedPlaylist;
 
         DispatcherTimer Slidertimer = new DispatcherTimer();
-        
+        public PlaylistCareTaker playlistCareTaker = PlaylistCareTaker.getInstance();
 
         // bitmap images frequently used
         private BitmapImage playBitmapImage = new BitmapImage();
         private BitmapImage pauseBitmapImage = new BitmapImage();
 
         IOServiceProxy fileService = IOServiceProxy.GetInstance();
-
-        
 
 
 
