@@ -89,6 +89,7 @@ namespace Music_Player
         {
             AddPlaylistWindow addPlaylistWindow = new AddPlaylistWindow();
             addPlaylistWindow.ShowDialog();
+            Displayer.Display(PlaylistsListBox, DisplayTag, MyDataStorage);
         }
 
         private void LoadFromFileBtnClick(object sender, RoutedEventArgs e)

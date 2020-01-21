@@ -105,6 +105,7 @@ namespace Music_Player
                 DataStorage.getInstance().playlists.Add(playlist);
 
             }
+            DataStorage.getInstance().playlists.Add(playlist);
 
             DialogResult = true;
             Close();
